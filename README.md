@@ -12,3 +12,4 @@
 Como rodar:
 - Clone este repositorio
 - Rode: make
+
