@@ -1,15 +1,60 @@
-# Projeto 1 - Sistema de Gerenciamento de Pedidos de Restaurante
+# Sistema de Gerenciamento de Pedidos de Restaurante
 
-### Funções:
-1. Adicionar pedido
-1. Listar pedidos adicionados 
-1. Adicionar pedido na fila de processamento
-1. Remover pedido da lista
-1. Processar fila de processamento
-1. Listar pedidos na lista encadeada
-1. Listar pedidos na fila de processamento
+Alissa de Lima Araújo
 
-Como rodar:
-- Clone este repositorio
-- Rode: make
+## Descrição
+
+Este projeto consiste no desenvolvimento de um sistema para gerenciar os pedidos de um restaurante. Os pedidos são armazenados em uma lista ligada e, posteriormente, processados pela cozinha em ordem de chegada utilizando uma fila.
+
+## Funcionalidades
+
+1. **Adicionar Pedido**  
+    Permite que a adição de um pedido.
+
+2. **Remover Pedido**  
+    Permite a remoção de um pedido.
+
+3. **Processar Pedido**  
+    Transfere um pedido para a fila de processamento.
+
+4. **Listar Pedidos Pendentes**  
+    Exibe todos os pedidos na lista ligada.
+
+5. **Listar Pedidos em Processamento**  
+    Exibe todos os pedidos na fila de processamento.
+
+6. **Processamento da fila de processamento**
+    Processa os pedidos na fila de processamento em ordem.
+
+## Estrutura do Projeto
+
+O projeto está dividido nos seguintes arquivos:
+
+- **fila.c / fila.h**  
+  Implementa e declara as funções relacionadas à fila, incluindo o processamento e a listagem de pedidos em processamento.
+
+- **linked_node.c / linked_node.h**  
+  Implementa e declara as funções relacionadas aos nós da lista ligada, que armazenam os pedidos pendentes.
+
+- **pedido.c / pedido.h**  
+  Implementa e declara as funções específicas para manipulação dos pedidos, como criação, remoção e listagem de pratos em um pedido.
+
+- **utils.c / utils.h**  
+  Contém os fluxos das funcionalidades principais.
+
+- **main.c**  
+  Contém a função principal e a interface de usuário para interação com as funcionalidades do sistema.
+
+## Estrutura de Dados
+
+- **Lista Ligada**  
+  Utilizada para armazenar os pedidos pendentes, permitindo a inserção e remoção de pratos específicos. Cada pedido é representado como um nó na lista.
+
+- **Fila**  
+  Utilizada para processar os pedidos em ordem de chegada. A fila opera no modelo FIFO (First In, First Out).
+
+### Compilar e executar:
+```console
+make
+```
 
