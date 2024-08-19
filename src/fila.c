@@ -1,46 +1,28 @@
-#pragma once
-
 #include "fila.h"
-#include "pedido.h"
-#include "linked_node.h"
 
-Fila *create_fila()
-{
-    Fila *fila = (Fila *)malloc(sizeof(Fila));
-    fila->size = 0;
-    fila->capacity = 1000;
-    fila->frente = 0;
-    fila->fundo = 0;
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "linked_node.h"
+#include "pedido.h"
+#include <unistd.h>
+
+Fila create_fila() {
+    Fila fila;
+    fila.tamanho = 0;
     return fila;
 }
 
-void destroy_fila(Fila *fila)
-{
-    free(fila);
-}
+void destroy_fila(Fila *fila) { free(fila); }
 
-void adicionar_pedido(Fila *fila, Pedido *pedido)
-{
-    if (fila->size == fila->capacity)
-    {
-        printf("Fila cheia\n");
-        return;
+void sort_pedidos(Pedido *pedidos, int size) {
+    for (int i = 0; i < size; i++) {
+        for (int j = i + 1; j < size; j++) {
+            if (pedidos[i].ordemDeChegada > pedidos[j].ordemDeChegada) {
+                Pedido temp = pedidos[i];
+                pedidos[i] = pedidos[j];
+                pedidos[j] = temp;
+            }
+        }
     }
-    int numero = pedido->numero;
-    fila->pedidos[numero] = pedido;
-    fila->fundo = (fila->fundo + 1) % fila->capacity;
-    fila->size++;
 }
-
-void remover_pedido(Fila *fila)
-{
-    if (fila->size == 0)
-    {
-        printf("Fila vazia\n");
-        return;
-    }
-
-    fila->frente = (fila->frente + 1) % fila->capacity;
-    fila->size--;
-}
-

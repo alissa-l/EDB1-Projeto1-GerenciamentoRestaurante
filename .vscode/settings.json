@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "stdlib.h": "c",
-        "linked_node.h": "c"
+        "linked_node.h": "c",
+        "stdio.h": "c",
+        "utils.h": "c",
+        "stdbool.h": "c",
+        "unistd.h": "c"
     }
 }

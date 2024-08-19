@@ -1,14 +1,15 @@
-#include <stdlib.h>
 #include "linked_node.h"
+
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
  * @brief Cria um novo nó encadeado
- * 
- * @param pedido 
- * @return LinkedNode* 
+ *
+ * @param pedido
+ * @return LinkedNode*
  */
-LinkedNode *create_linked_node(Pedido pedido)
-{
+LinkedNode *create_linked_node(Pedido pedido) {
     LinkedNode *node = (LinkedNode *)malloc(sizeof(LinkedNode));
     node->pedido = pedido;
     node->next = NULL;
@@ -18,39 +19,57 @@ LinkedNode *create_linked_node(Pedido pedido)
 
 /**
  * @brief Remove um nó encadeado
- * 
- * @param node 
+ *
+ * @param node
  */
-void remove_linked_node(LinkedNode *node) {
-    LinkedNode *pastNode = node->prev;
-    LinkedNode *nextNode = node->next;
+LinkedNode* remove_linked_node(LinkedNode *node, LinkedNode **head) {
+    if (*head == NULL || node == NULL) return NULL;
 
-    if (pastNode == NULL)
-    {
-        return;
+    if (*head == node) *head = node->next;
+
+    if (node->next != NULL) node->next->prev = node->prev;
+
+    if (node->prev != NULL) node->prev->next = node->next;
+
+    return *head;
+}
+
+LinkedNode* remove_linked_node_by_pedido(LinkedNode *head, int numero) {
+    if (head == NULL) return NULL;
+
+    LinkedNode *current = head;
+
+    while(current->prev != NULL) {
+        current = current->prev;
     }
 
-    pastNode->next = nextNode;
+    while (current != NULL) {
+        if (current->pedido.numero == numero) {
+            return remove_linked_node(current, &head);
+        }
+        current = current->next;
+    }
 
-    
-    free(node);
+    return NULL;
 }
 
 /**
  * @brief Insere um nó encadeado na lista
- * 
- * @param node 
- * @param prev 
+ *
+ * @param node
+ * @param prev
  */
-void insert_linked_node(LinkedNode *node, LinkedNode *prev)
-{
-    LinkedNode *next = prev->next;
-    prev->next = node;
-    node->prev = prev;
-    node->next = next;
-    next->prev = node;
+LinkedNode *insert_linked_node(LinkedNode *node, LinkedNode **head) {
+    node->prev = *head;
+    (*head)->next = node;
+    return node;
 }
 
+/**
+ * @brief Imprime um nó encadeado
+ *
+ * @param node
+ */
 void print_linked_node(LinkedNode *node) {
     printf("Pedido: %d\n", node->pedido.numero);
     printf("Entrada: %s\n", node->pedido.entrada);
@@ -59,17 +78,29 @@ void print_linked_node(LinkedNode *node) {
     printf("\n");
 }
 
+/**
+ * @brief Imprime a lista encadeada
+ *
+ * @param node
+ */
 void print_linked_list(LinkedNode *node) {
-    LinkedNode *current = node;
+    if (node == NULL) {
+        printf("Lista vazia\n");
+        return;
+    }
 
-    while (current->prev != NULL)
-    {
+    if (node->prev == NULL) {
+        print_linked_node(node);
+        return;
+    }
+
+    LinkedNode *current = node->prev;
+
+    while (current->prev != NULL) {
         current = current->prev;
     }
-    
 
-    while (current != NULL)
-    {
+    while (current != NULL) {
         print_linked_node(current);
         current = current->next;
     }

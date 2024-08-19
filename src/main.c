@@ -1,28 +1,33 @@
-#include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
 
+#include "fila.h"
 #include "linked_node.h"
 #include "utils.h"
 
 LinkedNode *head = NULL;
+Fila fila;
 
 /**
  * @brief Funcao que imprime o menu
- * 
+ *
  */
 void menu() {
-    printf("+------------------------------+\n");
+    printf("\n\n\n+------------------------------+\n");
     printf("1 - Adicionar pedido\n");
     printf("2 - Remover pedido\n");
-    printf("3 - Processar pedido\n");
-    printf("3 - Listar pedidos pendentes\n");
-    printf("4 - Sair\n");
+    printf("3 - Colocar um pedido na fila de processamento\n");
+    printf("4 - Processar fila de pedidos\n");
+    printf("5 - Listar pedidos na fila\n");
+    printf("6 - Listar pedidos na lista\n");
+    printf("7 - Sair\n");
     printf("+------------------------------+\n");
 }
 
 /**
  * @brief Funcao que imprime as opcoes do menu em loop
- * 
+ *
  */
 void print_menu_options() {
     while (true) {
@@ -32,19 +37,42 @@ void print_menu_options() {
 
         scanf("%d", &option);
         switch (option) {
+            // Adicionar pedido
             case 1:
-                adicionar_pedido(head);
+                LinkedNode *novoPedido = adicionar_pedido(head);
+                if (novoPedido != NULL) {
+                    head = novoPedido;
+                }
                 break;
+            // Remover pedido
             case 2:
-                remover_pedido(head);
+                LinkedNode *headAtualizada1 = remover_pedido(head);
+                head = headAtualizada1;
                 break;
+            // Processar pedido
             case 3:
-                processar_pedido(head);
+                int pedidoEscolhido = processar_pedido(head, &fila);
+                if (pedidoEscolhido != -100) {
+                    LinkedNode *headAtualizada2 = remove_linked_node_by_pedido(head, pedidoEscolhido);
+                    if(headAtualizada2 != NULL) {
+                        head = headAtualizada2;
+                    }
+                }
                 break;
+            // Processar fila
             case 4:
-                listar_pedidos(head);
-                return;
+                fila = *processar_fila(&fila);
+                break;
+            // Listar pedidos da fila
             case 5:
+                fila_listar_pedidos(&fila);
+                break;
+            // Listar pedidos da lista
+            case 6:
+                listar_pedidos(head);
+                break;
+            // Sair
+            case 7:
                 return;
             default:
                 return;
@@ -55,11 +83,12 @@ void print_menu_options() {
 
 /**
  * @brief Funcao de entrada do programa
- * 
- * @return int 
+ *
+ * @return int
  */
-int main() 
-{ 
-    print_menu_options(); 
-    return 0; 
+int main() {
+    fila = create_fila();
+    fila.tamanho = 0;
+    print_menu_options();
+    return 0;
 }
