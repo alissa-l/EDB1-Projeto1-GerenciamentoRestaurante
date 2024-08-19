@@ -31,13 +31,13 @@ Este projeto consiste no desenvolvimento de um sistema para gerenciar os pedidos
 O projeto está dividido nos seguintes arquivos:
 
 - **fila.c / fila.h**  
-  Implementa e declara as funções relacionadas à fila, incluindo o processamento e a listagem de pedidos em processamento.
+  Implementa e declara as funções relacionadas à fila.
 
 - **linked_node.c / linked_node.h**  
-  Implementa e declara as funções relacionadas aos nós da lista ligada, que armazenam os pedidos pendentes.
+  Implementa e declara as funções relacionadas aos nós da lista ligada.
 
 - **pedido.c / pedido.h**  
-  Implementa e declara as funções específicas para manipulação dos pedidos, como criação, remoção e listagem de pratos em um pedido.
+  Implementa e declara as funções específicas para manipulação dos pedidos.
 
 - **utils.c / utils.h**  
   Contém os fluxos das funcionalidades principais.
